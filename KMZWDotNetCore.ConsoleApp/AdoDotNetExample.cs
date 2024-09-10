@@ -26,21 +26,21 @@ namespace KMZWDotNetCore.ConsoleApp
 
             string queryString = "select * from Tbl_Blog";
             SqlCommand cmd = new SqlCommand(queryString,connection);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read()) {
+                Console.WriteLine("Blog Id ==> " + reader["BlogId"]);
+                Console.WriteLine("Blog Aurthor ==> " + reader["BlogAurthor"]);
+                Console.WriteLine("Blog Title ==> " + reader["BlogTitle"]);
+                Console.WriteLine("Blog Content ==> " + reader["BlogContent"]);
+                Console.WriteLine("----------------------------------------------");
+            }
 
             connection.Close();
             Console.WriteLine("Connection was closed!");
 
-            foreach (DataRow dr in dt.Rows)
-            {
-                Console.WriteLine("Blog Id ==> " + dr["BlogId"]);
-                Console.WriteLine("Blog Aurthor ==> " + dr["BlogAurthor"]);
-                Console.WriteLine("Blog Title ==> " + dr["BlogTitle"]);
-                Console.WriteLine("Blog Content ==> " + dr["BlogContent"]);
-                Console.WriteLine("--------------------------------------------");
-            }
+            
         }
 
     }
