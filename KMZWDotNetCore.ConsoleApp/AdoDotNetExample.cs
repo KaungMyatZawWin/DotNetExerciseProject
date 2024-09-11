@@ -49,13 +49,13 @@ namespace KMZWDotNetCore.ConsoleApp
             Console.WriteLine("Connection is open.");
 
             string queryString = @"INSERT INTO [dbo].[Tbl_Blog]
-           ([BlogTitle]
-           ,[BlogContent]
-           ,[BlogAurthor])
-     VALUES
-           (@title
-           ,@content
-           ,@aurthor)";
+                                       ([BlogTitle]
+                                       ,[BlogContent]
+                                       ,[BlogAurthor])
+                                        VALUES
+                                       (@title
+                                       ,@content
+                                       ,@aurthor)";
 
             SqlCommand cmd = new SqlCommand(queryString,connection);
             cmd.Parameters.AddWithValue("@title", title);
@@ -70,6 +70,32 @@ namespace KMZWDotNetCore.ConsoleApp
 
             string message = result > 0 ? "Successfully created new blog." : "Faild to create!";
             Console.WriteLine(message);
+        }
+
+        public void Update(int blogId, string aurthor , string blogTitle , string blogContent)
+        {
+            SqlConnection connection = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+            Console.WriteLine("Connection is open.");
+
+            string queryString = @"UPDATE [dbo].[Tbl_Blog]
+               SET [BlogTitle] = @BlogTitle
+                  ,[BlogContent] = @BlogContent
+                  ,[BlogAurthor] = @BlogAurthor
+             WHERE BlogId= @BlogId";
+
+            SqlCommand cmd = new SqlCommand(queryString,connection);
+            cmd.Parameters.AddWithValue("@BlogId", blogId);
+            cmd.Parameters.AddWithValue("@BlogTitle", blogTitle);
+            cmd.Parameters.AddWithValue("@BlogContent", blogContent);
+            cmd.Parameters.AddWithValue("@BlogAurthor", aurthor);
+
+            int result = cmd.ExecuteNonQuery();
+
+            connection .Close();
+            Console.WriteLine("Connection was closed!");
+
+            Console.WriteLine(result == 1 ? "Successfully updated blog." : "Failed to update!");
         }
 
     }
