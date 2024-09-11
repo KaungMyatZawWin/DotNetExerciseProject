@@ -40,7 +40,36 @@ namespace KMZWDotNetCore.ConsoleApp
             connection.Close();
             Console.WriteLine("Connection was closed!");
 
-            
+        }
+
+        public void Create(string aurthorName,string title, string content)
+        {
+            SqlConnection connection = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+            Console.WriteLine("Connection is open.");
+
+            string queryString = @"INSERT INTO [dbo].[Tbl_Blog]
+           ([BlogTitle]
+           ,[BlogContent]
+           ,[BlogAurthor])
+     VALUES
+           (@title
+           ,@content
+           ,@aurthor)";
+
+            SqlCommand cmd = new SqlCommand(queryString,connection);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@content", content);
+            cmd.Parameters.AddWithValue("@aurthor", aurthorName);
+
+            int result = cmd.ExecuteNonQuery();
+
+
+            connection.Close();
+            Console.WriteLine("Connection was closed!");
+
+            string message = result > 0 ? "Successfully created new blog." : "Faild to create!";
+            Console.WriteLine(message);
         }
 
     }

@@ -37,4 +37,5 @@ Console.WriteLine("Hello, World!");
 //}
 
 AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
-adoDotNetExample.Read();
+//adoDotNetExample.Read();
+adoDotNetExample.Create("John Doe","Testing Title","This is content");
