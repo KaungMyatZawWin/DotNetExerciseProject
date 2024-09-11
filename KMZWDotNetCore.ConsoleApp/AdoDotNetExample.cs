@@ -98,5 +98,25 @@ namespace KMZWDotNetCore.ConsoleApp
             Console.WriteLine(result == 1 ? "Successfully updated blog." : "Failed to update!");
         }
 
-    }
+
+        public void Delete(int blogId) 
+        {
+            SqlConnection connection = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+            Console.WriteLine("Connection is open.");
+
+            string queryString = @"DELETE FROM [dbo].[Tbl_Blog]
+                    WHERE BlogId = @BlogId";
+
+            SqlCommand cmd = new SqlCommand(queryString, connection);
+            cmd.Parameters.AddWithValue("@BlogId", blogId);
+            int result = cmd.ExecuteNonQuery();
+
+            connection.Close();
+            Console.WriteLine("Connection was closed!");
+
+            Console.WriteLine(result == 1 ? "Successfully Deleted Blog." : "Failed to Delete!");
+
+        }
+    }   
 }
