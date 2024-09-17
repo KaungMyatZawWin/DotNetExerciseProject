@@ -36,8 +36,10 @@ Console.WriteLine("Hello, World!");
 //    Console.WriteLine("Blog Aurthor ==> " + dr["BlogAurthor"]);
 //}
 
-AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
+//AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
 //adoDotNetExample.Read();
 //adoDotNetExample.Create("John Doe","Testing Title","This is content");
 //adodotnetexample.update(12, "update john doe", "update title", "update content");
-adoDotNetExample.Delete(12);
+//adoDotNetExample.Delete(12);
+DapperExample dapperExample = new DapperExample();
+dapperExample.Read();
