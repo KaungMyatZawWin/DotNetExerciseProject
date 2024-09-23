@@ -48,4 +48,5 @@ Console.WriteLine("Hello, World!");
 //dapperExample.Delete();
 
 EFCoreExample efcore = new EFCoreExample();
-efcore.Read();
+//efcore.Read();
+efcore.Create();
