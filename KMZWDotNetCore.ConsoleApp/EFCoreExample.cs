@@ -105,5 +105,26 @@ namespace KMZWDotNetCore.ConsoleApp
 
         }
 
+        public void Delete()
+        {
+            Console.Write("Enter BlogId To Find: ");
+            string idStr = Console.ReadLine()!;
+            int blogId = int.Parse(idStr);
+
+            AppDbContext db = new AppDbContext();
+            var item = db.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == blogId);
+            if(item is null)
+            {
+                Console.WriteLine("Item not found!");
+                return;
+            };
+
+            db.Entry(item).State = EntityState.Deleted;
+            var model  = db.SaveChanges();
+
+            string result = model == 1 ? "Successfully Deleted." : "Failed to Delete!";
+            Console.WriteLine(result);
+        }
+
     }
 }

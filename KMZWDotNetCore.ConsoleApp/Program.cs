@@ -50,4 +50,5 @@ Console.WriteLine("Hello, World!");
 EFCoreExample efcore = new EFCoreExample();
 //efcore.Read();
 //efcore.Create();
-efcore.Update();
+//efcore.Update();
+efcore.Delete();
