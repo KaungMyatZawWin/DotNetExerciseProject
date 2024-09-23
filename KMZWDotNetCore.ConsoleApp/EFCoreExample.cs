@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,14 +10,13 @@ namespace KMZWDotNetCore.ConsoleApp
 {
     public class EFCoreExample
     {
-
+        #region ReadMethod
         public void Read()
         {
             AppDbContext db = new AppDbContext();
-            var lst = db.Blogs.Where(x=>x.DeleteFlag == 0).ToList();
-            foreach (var item in lst)
+            var model = db.Blog.Where(x => x.DeleteFlag == 0).ToList();
+            foreach (var item in model)
             {
-                Console.WriteLine("------------------------");
                 Console.WriteLine(item.BlogId);
                 Console.WriteLine(item.BlogAuthor);
                 Console.WriteLine(item.BlogTitle);
@@ -26,7 +24,9 @@ namespace KMZWDotNetCore.ConsoleApp
                 Console.WriteLine("------------------------");
             }
         }
+        #endregion
 
+        #region CreateMethod
         public void Create()
         {
             Console.Write("Enter Author Name: ");
@@ -39,40 +39,34 @@ namespace KMZWDotNetCore.ConsoleApp
             EFCoreDataModel blog = new EFCoreDataModel
             {
                 BlogAuthor = name,
-                BlogTitle = title, 
+                BlogTitle = title,
                 BlogContent = content
             };
 
             AppDbContext db = new AppDbContext();
-            db.Blogs.Add(blog);
-            int model = db.SaveChanges();
+            db.Blog.Add(blog);
+            var model = db.SaveChanges();
 
-            string result = model == 1 ? "Scuccessfully Crete New Blog." : "Failed To Create!";
+            string result = model == 1 ? "Successfully Create New Blog." : "Failed To Create!";
             Console.WriteLine(result);
         }
+        #endregion
 
+        #region UpdateMethod
         public void Update()
         {
             Console.Write("Enter BlogId To Find: ");
             string idStr = Console.ReadLine()!;
             int blogId = int.Parse(idStr);
 
-            
             AppDbContext db = new AppDbContext();
-            var item  = db.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == blogId);
 
+            var item = db.Blog.AsNoTracking().FirstOrDefault(x => x.BlogId == blogId);
             if (item is null)
             {
-                Console.WriteLine("Blog not found!");
+                Console.WriteLine("Item not found !");
                 return;
             }
-
-            Console.WriteLine("------------------------");
-            Console.WriteLine(item.BlogId);
-            Console.WriteLine(item.BlogAuthor);
-            Console.WriteLine(item.BlogTitle);
-            Console.WriteLine(item.BlogContent);
-            Console.WriteLine("------------------------");
 
             Console.Write("Enter Author Name: ");
             string name = Console.ReadLine()!;
@@ -81,17 +75,17 @@ namespace KMZWDotNetCore.ConsoleApp
             Console.Write("Enter Author Content: ");
             string content = Console.ReadLine()!;
 
-            if(!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(name))
             {
                 item.BlogAuthor = name;
             }
 
-            if(!string.IsNullOrEmpty(title))
+            if (!string.IsNullOrEmpty(title))
             {
-                item.BlogTitle = title; 
+                item.BlogTitle = title;
             }
 
-            if(!string.IsNullOrEmpty(content))
+            if (!string.IsNullOrEmpty(content))
             {
                 item.BlogContent = content;
             }
@@ -99,11 +93,10 @@ namespace KMZWDotNetCore.ConsoleApp
             db.Entry(item).State = EntityState.Modified;
             var model = db.SaveChanges();
 
-            string result = model == 1 ? "Successfully updated. " : "Failed to update";
-
+            string result = model == 1 ? "Successfylly Updated!" : "Failed to Update!";
             Console.WriteLine(result);
-
         }
+        #endregion
 
         public void Delete()
         {
@@ -112,17 +105,18 @@ namespace KMZWDotNetCore.ConsoleApp
             int blogId = int.Parse(idStr);
 
             AppDbContext db = new AppDbContext();
-            var item = db.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == blogId);
-            if(item is null)
+            var item = db.Blog.AsNoTracking().FirstOrDefault(x => x.BlogId == blogId);
+            if (item is null)
             {
                 Console.WriteLine("Item not found!");
                 return;
-            };
+            }
 
             db.Entry(item).State = EntityState.Deleted;
-            var model  = db.SaveChanges();
+            var model = db.SaveChanges();
 
-            string result = model == 1 ? "Successfully Deleted." : "Failed to Delete!";
+            string result = model == 1 ? "Successfully Deleted. " : "Failed to Delete!";
+
             Console.WriteLine(result);
         }
 

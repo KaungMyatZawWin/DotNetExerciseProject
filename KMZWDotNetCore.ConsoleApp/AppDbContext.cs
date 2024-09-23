@@ -11,7 +11,7 @@ namespace KMZWDotNetCore.ConsoleApp
 {
     public class AppDbContext : DbContext
     {
-        private readonly SqlConnectionStringBuilder _sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
+        private readonly SqlConnectionStringBuilder _connection = new SqlConnectionStringBuilder()
         {
             DataSource = ".",
             InitialCatalog = "DotNetTrainingBatch5",
@@ -24,10 +24,10 @@ namespace KMZWDotNetCore.ConsoleApp
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(_sqlConnectionStringBuilder.ConnectionString);
+                optionsBuilder.UseSqlServer(_connection.ConnectionString);
             }
         }
 
-        public DbSet<EFCoreDataModel> Blogs { get; set; }
+        public DbSet<EFCoreDataModel> Blog { get; set; }
     }
 }

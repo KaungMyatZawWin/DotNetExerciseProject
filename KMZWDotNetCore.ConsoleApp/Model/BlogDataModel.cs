@@ -37,4 +37,5 @@ namespace KMZWDotNetCore.ConsoleApp.Model
         [Column("DeleteFlag")]
         public int DeleteFlag { get; set; }
     }
+
 }
