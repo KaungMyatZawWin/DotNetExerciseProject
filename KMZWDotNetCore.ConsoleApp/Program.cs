@@ -41,5 +41,11 @@ Console.WriteLine("Hello, World!");
 //adoDotNetExample.Create("John Doe","Testing Title","This is content");
 //adodotnetexample.update(12, "update john doe", "update title", "update content");
 //adoDotNetExample.Delete(12);
-DapperExample dapperExample = new DapperExample();
-dapperExample.Read();
+//DapperExample dapperExample = new DapperExample();
+//dapperExample.Read();
+//dapperExample.Create();
+//dapperExample.Update();
+//dapperExample.Delete();
+
+EFCoreExample efcore = new EFCoreExample();
+efcore.Read();
