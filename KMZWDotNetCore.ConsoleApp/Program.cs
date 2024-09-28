@@ -47,8 +47,41 @@ Console.WriteLine("Hello, World!");
 //dapperExample.Update();
 //dapperExample.Delete();
 
-EFCoreExample efcore =  new EFCoreExample();
+EFCoreExample efcore = new EFCoreExample();
 //efcore.Read();
 //efcore.Create();
 //efcore.Update();
-efcore.Delete();
+//efcore.Delete();
+
+int option;
+
+do
+{
+    Console.WriteLine("Select One optin ( Only type number )");
+    Console.Write("1 To See All Blog , 2 To Create Blog , 3 To Update Blog , 4 To Delete Blog :");
+    string numStr = Console.ReadLine()!;
+    option = int.Parse(numStr);
+
+    switch (option)
+    {
+        case 1:
+            efcore.Read();
+            break;
+        case 2:
+            efcore.Create();
+            break;
+        case 3:
+            efcore.Update();
+            break;
+        case 4:
+            efcore.Delete();
+            break;
+        default:
+            Console.WriteLine("Please Only Select Within 1 to 4 !");
+            option = 1;
+            break;
+
+    }
+
+}
+while (option == 1 || option == 2 || option == 3 || option == 4);
